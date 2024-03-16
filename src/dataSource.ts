@@ -8,7 +8,7 @@ const AppDataSource = new DataSource(
         "username": "postgres",
         "password": "1234",
         "synchronize": true,
-        "entities": ["src/models/**/*"],
+        "entities": ["src/models/*"],
         "database": "dv300_term1"
     }
 )
