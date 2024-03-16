@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import locationRouter from './routes/location.route';
 // import inventoryRouter from './route/inventoryRoute';
 // import recipeRouter from './route/recipeRoute';
 
@@ -16,7 +17,7 @@ app.get('/', (req, res) => {
 });
 
 // Route Endpoints
-// app.use('/inventory', inventoryRouter)
+app.use('/location', locationRouter)
 // app.use('/recipe', recipeRouter)
 
 app.listen(process.env.PORT, () => {
