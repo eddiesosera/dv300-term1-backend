@@ -5,7 +5,6 @@ import locationRouter from './routes/location.route';
 // import recipeRouter from './route/recipeRoute';
 
 const cors = require("cors")
-
 const app = express();
 
 app.use(cors())

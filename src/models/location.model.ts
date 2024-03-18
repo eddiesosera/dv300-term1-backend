@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Skateboard } from "./skateboard.model";
 
 @Entity()
 export class Location {
@@ -20,8 +21,8 @@ export class Location {
     @Column()
     stockAmount!: number
 
-    @Column()
-    inventoryAmount!: number
+    @OneToMany(() => Skateboard, (skateboards) => skateboards.location)
+    public skateboards?: Skateboard[]
 
     // DIFFERENT STOCK AMOUNT ON SITE
 
