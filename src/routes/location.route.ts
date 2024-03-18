@@ -2,12 +2,10 @@ import express from "express";
 import AppDataSource from "../dataSource";
 import { Location } from "../models/location.model";
 
-
 const locationRouter = express.Router()
+const appDataSource = AppDataSource
 
 locationRouter.use(express.json());
-
-const appDataSource = AppDataSource
 
 // Get All
 locationRouter.get('/', async (req, res) => {

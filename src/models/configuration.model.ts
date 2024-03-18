@@ -21,7 +21,4 @@ export class Configuration {
     @Column()
     bearings!: number;
 
-    @OneToOne(() => Skateboard, (skateboard) => skateboard.configuration)
-    public skateboard?: Skateboard
-
 }

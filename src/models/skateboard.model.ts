@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Location } from "./location.model";
 import { Configuration } from "./configuration.model";
 
@@ -19,8 +19,9 @@ export class Skateboard {
     @Column()
     craftedBy!: number;
 
-    @OneToOne(() => Configuration, (configuration) => configuration.skateboard)
-    public configuration?: Configuration
+    @OneToOne(() => Configuration)
+    @JoinColumn()
+    configuration?: Configuration
 
     @ManyToOne(() => Location, (location) => location.skateboards)
     public location?: Location
