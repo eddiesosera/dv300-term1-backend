@@ -29,11 +29,18 @@ skateboardRouter.get('/', async (req, res) => {
 skateboardRouter.get('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        await appDataSource.getRepository(Skateboard)
-            .createQueryBuilder("skateboard")
+        const skateboard = await appDataSource.getRepository(Skateboard)
+            .createQueryBuilder("skateboards")
             .leftJoinAndSelect('skateboards.configuration', 'configuration')
-            .where("skateboards.id :id", { id: id })
+            .where("skateboards.id = :id", { id: id })
             .getOne()
+
+        if (!skateboard) {
+            return res.status(404).json({ error: 'Skateboard not found' });
+        }
+
+        res.json(skateboard);
+
     } catch (error) {
         console.log('Error fetching: ', error)
         res.status(500).json({ error: 'Internal server error' })
@@ -104,7 +111,7 @@ skateboardRouter.get('/:id', async (req, res) => {
                 .getRepository(Skateboard)
                 .createQueryBuilder("skateboard")
                 .leftJoinAndSelect('skateboards.configuration', 'configuration')
-                .where("skateboards.id :id", { id: id })
+                .where("skateboards.id = :id", { id: id })
                 .getOne()
 
         if (!skateboardItem) {
@@ -113,7 +120,7 @@ skateboardRouter.get('/:id', async (req, res) => {
 
         // Update Properties
         skateboardItem!.price = price
-        skateboardItem!.price = avatar
+        skateboardItem!.avatar = avatar
         skateboardItem!.configuration = configuration
 
         const updatedItem = await appDataSource.getRepository(Skateboard).save(skateboardItem!);
