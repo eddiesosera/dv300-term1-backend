@@ -98,7 +98,7 @@ skateboardRouter.post('/', async (req, res) => {
 })
 
 // Update Single
-skateboardRouter.get('/:id', async (req, res) => {
+skateboardRouter.patch('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
         const { price } = req.body;
@@ -109,7 +109,7 @@ skateboardRouter.get('/:id', async (req, res) => {
         const skateboardItem = await
             appDataSource
                 .getRepository(Skateboard)
-                .createQueryBuilder("skateboard")
+                .createQueryBuilder("skateboards")
                 .leftJoinAndSelect('skateboards.configuration', 'configuration')
                 .where("skateboards.id = :id", { id: id })
                 .getOne()
@@ -121,9 +121,16 @@ skateboardRouter.get('/:id', async (req, res) => {
         // Update Properties
         skateboardItem!.price = price
         skateboardItem!.avatar = avatar
-        skateboardItem!.configuration = configuration
+        skateboardItem!.configuration!.board_type = configuration.board_type
 
-        const updatedItem = await appDataSource.getRepository(Skateboard).save(skateboardItem!);
+        console.log("Updated Skateboard", skateboardItem)
+
+        const updatedItem = await appDataSource
+            .createQueryBuilder()
+            .update(Skateboard)
+            .set(skateboardItem!)
+            .execute()
+
         res.json(updatedItem)
 
     } catch (error) {
@@ -136,12 +143,15 @@ skateboardRouter.get('/:id', async (req, res) => {
 skateboardRouter.delete('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        await appDataSource.getRepository(Skateboard)
+        const skateboard = await appDataSource.getRepository(Skateboard)
             .createQueryBuilder()
             .delete()
             .from(Skateboard)
             .where("id = :id", { id: id })
             .execute()
+
+        res.json(skateboard)
+
     } catch (error) {
         console.log('Error fetching: ', error)
         res.status(500).json({ error: 'Internal server error' })
