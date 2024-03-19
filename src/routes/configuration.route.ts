@@ -23,6 +23,27 @@ configurationRouter.get('/', async (req, res) => {
     }
 });
 
+// Get Single
+configurationRouter.get('/:id', async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const configuration = await appDataSource.getRepository(Configuration)
+            .createQueryBuilder("configuration")
+            .where("configuration.id = :id", { id: id })
+            .getOne()
+
+        if (!configuration) {
+            return res.status(404).json({ error: 'Configuration not found' });
+        }
+
+        res.json(configuration);
+
+    } catch (error) {
+        console.log('Error fetching: ', error)
+        res.status(500).json({ error: 'Internal server error' })
+    }
+});
+
 
 export default configurationRouter
 
