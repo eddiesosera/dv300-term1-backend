@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv'; // ? hey this has a red underline for me: is it the same for you
 import locationRouter from './routes/location.route';
 import skateboardRouter from './routes/skateboard.route';
+import configurationRouter from './routes/configuration.route';
 // import inventoryRouter from './route/inventoryRoute';
 // import recipeRouter from './route/recipeRoute';
 
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 // Route Endpoints
 app.use('/location', locationRouter)
 app.use('/skateboards', skateboardRouter)
+app.use('/configuration', configurationRouter)
 // app.use('/recipe', recipeRouter)
 
 app.listen(process.env.PORT, () => {
