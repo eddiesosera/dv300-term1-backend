@@ -2,6 +2,7 @@ import express from "express";
 import AppDataSource from "../dataSource";
 import { Location } from "../models/location.model";
 import { Skateboard } from "../models/skateboard.model";
+import { Configuration } from "../models/configuration.model";
 
 const skateboardRouter = express.Router()
 const appDataSource = AppDataSource
@@ -12,7 +13,11 @@ skateboardRouter.use(express.json());
 skateboardRouter.get('/', async (req, res) => {
     try {
         console.log('Im being requested: Skateboard')
-        const items = await appDataSource.getRepository(Skateboard).find();
+        const items = await appDataSource
+            .getRepository(Skateboard)
+            .createQueryBuilder('skateboards')
+            .leftJoinAndSelect('skateboards.configuration', 'configuration')
+            .getMany();
         res.json(items)
     } catch (error) {
         console.log('Error fetching: ', error)
@@ -26,7 +31,9 @@ skateboardRouter.get('/:id', async (req, res) => {
         const id = parseInt(req.params.id);
         await appDataSource.getRepository(Skateboard)
             .createQueryBuilder("skateboard")
-            .where("skateboard.id :id", { id: id })
+            .leftJoinAndSelect('skateboards.configuration', 'configuration')
+            .where("skateboards.id :id", { id: id })
+            .getOne()
     } catch (error) {
         console.log('Error fetching: ', error)
         res.status(500).json({ error: 'Internal server error' })
@@ -37,14 +44,46 @@ skateboardRouter.get('/:id', async (req, res) => {
 skateboardRouter.post('/', async (req, res) => {
     try {
 
-        const newSkateboard = req.body
+        const { configuration, ...newSkateboard } = req.body
+        // const {configuration} = req.body
+        let configId: any = null;
 
+        // Create Configuration of Skateboard first to get the ID after the item is recorded
         await appDataSource
             .createQueryBuilder()
             .insert()
-            .into(Skateboard)
-            .values([newSkateboard])
+            .into(Configuration)
+            .values([configuration])
             .execute()
+            .then((configItem: any) => {
+                configId = configItem.identifiers[0]?.id
+            }).catch((error) => {
+                console.log('Error creating Configuration: ', error)
+                res.status(500).json({ error: 'Configuration could not be saved.' })
+            })
+
+        // If the Configuration has been created then create Skateboard item
+        if (configId) {
+            console.log("AFTER CONFIG SUCCESS ENTER SKATEBOARD, CONFID ID: ", configId)
+
+            await appDataSource
+                .createQueryBuilder()
+                .insert()
+                .into(Skateboard)
+                .values([
+                    {
+                        craftedBy: 1,
+                        avatar: newSkateboard.avatar,
+                        price: newSkateboard.price,
+                        craftedOn: Date(),
+                        configuration: configId
+                    }
+                ])
+                .execute().then((sktbd) => {
+                    let skateboardNewId = sktbd.identifiers[0].id
+                    console.log("Created New Skateboard ID: ", skateboardNewId)
+                })
+        }
     } catch (error) {
         console.log('Error fetching: ', error)
         res.status(500).json({ error: 'Internal server error' })
@@ -61,7 +100,12 @@ skateboardRouter.get('/:id', async (req, res) => {
 
         // Find Single Item
         const skateboardItem = await
-            appDataSource.getRepository(Skateboard).findOneBy({ id: id })
+            appDataSource
+                .getRepository(Skateboard)
+                .createQueryBuilder("skateboard")
+                .leftJoinAndSelect('skateboards.configuration', 'configuration')
+                .where("skateboards.id :id", { id: id })
+                .getOne()
 
         if (!skateboardItem) {
             res.status(400).json({ message: 'No Item found' })

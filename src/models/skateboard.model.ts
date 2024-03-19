@@ -14,14 +14,14 @@ export class Skateboard {
     craftedOn!: string;
 
     @Column()
-    avaatar!: string;
+    avatar!: string;
 
     @Column()
     craftedBy!: number;
 
     @OneToOne(() => Configuration)
     @JoinColumn()
-    configuration?: Configuration
+    configuration?: Configuration | null
 
     @ManyToOne(() => Location, (location) => location.skateboards)
     public location?: Location
