@@ -160,14 +160,36 @@ skateboardRouter.put('/:id', async (req, res) => {
 skateboardRouter.delete('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const skateboard = await appDataSource.getRepository(Skateboard)
-            .createQueryBuilder()
-            .delete()
-            .from(Skateboard)
-            .where("id = :id", { id: id })
-            .execute()
 
-        res.json("Successfully removed Skateboard. " + JSON.stringify(skateboard))
+        // Get Skateboard 
+        await appDataSource.getRepository(Skateboard)
+            .createQueryBuilder("skateboards")
+            .leftJoinAndSelect('skateboards.configuration', 'configuration')
+            .where("skateboards.id = :id", { id: id })
+            .getOne().then(async (sktbd: any) => {
+                console.log("DELETE SKTBD: ", sktbd)
+
+                // Delete Skateboard
+                const skateboardDelete = await appDataSource.getRepository(Skateboard)
+                    .createQueryBuilder()
+                    .delete()
+                    .from(Skateboard)
+                    .where("id = :id", { id: id })
+                    .execute()
+
+                res.json("Successfully removed Skateboard. " + JSON.stringify(skateboardDelete))
+
+                // Delete Configuration
+                await appDataSource.getRepository(Configuration)
+                    .createQueryBuilder()
+                    .delete()
+                    .from(Configuration)
+                    .where("id = :id", { id: sktbd.configuration.id })
+                    .execute()
+
+            })
+
+
 
     } catch (error) {
         console.log('Error fetching: ', error)
