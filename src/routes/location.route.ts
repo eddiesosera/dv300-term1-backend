@@ -11,8 +11,15 @@ locationRouter.use(express.json());
 locationRouter.get('/', async (req, res) => {
     try {
         console.log('Im being requested')
-        const items = await appDataSource.getRepository(Location).find();
+        const items = await appDataSource
+            .getRepository(Location)
+            .createQueryBuilder('location')
+            .leftJoinAndSelect('location.skateboards', 'skateboards')
+            .leftJoinAndSelect('location.users', 'users')
+            .getMany();
+
         res.json(items)
+
     } catch (error) {
         console.log('Error fetching: ', error)
         res.status(500).json({ error: 'Internal server error' })

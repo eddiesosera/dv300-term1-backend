@@ -51,7 +51,7 @@ skateboardRouter.get('/:id', async (req, res) => {
 skateboardRouter.post('/', async (req, res) => {
     try {
 
-        const { configuration, ...newSkateboard } = req.body
+        const { configuration, userId, ...newSkateboard } = req.body
         // const {configuration} = req.body
         let configId: any = null;
 
@@ -79,7 +79,7 @@ skateboardRouter.post('/', async (req, res) => {
                 .into(Skateboard)
                 .values([
                     {
-                        craftedBy: 1,
+                        craftedBy: userId!,
                         avatar: newSkateboard.avatar,
                         price: newSkateboard.price,
                         craftedOn: Date(),

@@ -13,7 +13,10 @@ userRouter.get('/', async (req, res) => {
         console.log('User: Im being requested')
         const users = await appDataSource
             .getRepository(User)
-            .find();
+            .createQueryBuilder('users')
+            .leftJoinAndSelect('users.skateboard', 'skateboard')
+            .leftJoinAndSelect('users.location', 'location')
+            .getMany();
 
         res.json(users)
 
@@ -27,8 +30,11 @@ userRouter.get('/', async (req, res) => {
 userRouter.get('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const user = await appDataSource.getRepository(User)
-            .createQueryBuilder("users")
+        const user = await appDataSource
+            .getRepository(User)
+            .createQueryBuilder('users')
+            .leftJoinAndSelect('users.skateboard', 'skateboard')
+            .leftJoinAndSelect('users.location', 'location')
             .where("users.id = :id", { id: id })
             .getOne()
 
@@ -43,6 +49,32 @@ userRouter.get('/:id', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' })
     }
 });
+
+// Insert (Create) User
+userRouter.post('/', async (req, res) => {
+    try {
+
+        const newUser = req.body
+
+        console.log("Trying to create the user: ", newUser)
+
+        const createdUser = await appDataSource
+            .createQueryBuilder()
+            .insert()
+            .into(User)
+            .values({ dateJoined: Date(), ...newUser })
+            .execute().then((user) => {
+                let newUserId = user.identifiers[0].id
+                console.log("Created New User ID: ", newUserId)
+            })
+
+        res.json("Created New User: " + createdUser)
+
+    } catch (error) {
+        console.log('Error creating User: ', error)
+        res.status(500).json({ error: 'Could not create User account. Internal server error' })
+    }
+})
 
 
 export default userRouter

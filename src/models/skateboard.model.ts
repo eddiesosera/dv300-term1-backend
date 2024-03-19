@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Location } from "./location.model";
 import { Configuration } from "./configuration.model";
+import { User } from "./user.model";
 
 @Entity()
 export class Skateboard {
@@ -16,8 +17,9 @@ export class Skateboard {
     @Column()
     avatar!: string;
 
-    @Column()
-    craftedBy!: number;
+    @ManyToOne(() => User, (user) => user.skateboard)
+    @JoinColumn()
+    craftedBy!: User | null
 
     @OneToOne(() => Configuration)
     @JoinColumn()

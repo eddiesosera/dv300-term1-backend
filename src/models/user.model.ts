@@ -34,10 +34,10 @@ export class User {
     @Column()
     isUserLocalAdmin!: boolean;
 
-    @ManyToOne(() => Location, (location) => location.skateboards)
+    @ManyToOne(() => Location, (location) => location.users)
     public location?: Location
 
-    @OneToMany(() => Skateboard, (skatboard) => skatboard.craftedBy)
-    public skateboards?: Skateboard[]
+    @OneToMany(() => Skateboard, (skateboard) => skateboard.craftedBy)
+    public skateboard?: Skateboard[]
 
 }

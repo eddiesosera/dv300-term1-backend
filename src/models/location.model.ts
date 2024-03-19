@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Skateboard } from "./skateboard.model";
+import { User } from "./user.model";
 
 @Entity()
 export class Location {
@@ -20,6 +21,9 @@ export class Location {
 
     @Column()
     stockAmount!: number
+
+    @OneToMany(() => User, (user) => user.location)
+    public users?: User[]
 
     @OneToMany(() => Skateboard, (skateboards) => skateboards.location)
     public skateboards?: Skateboard[]
