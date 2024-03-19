@@ -9,7 +9,7 @@ const appDataSource = AppDataSource
 
 skateboardRouter.use(express.json());
 
-// Get All
+// Get All Skateboards
 skateboardRouter.get('/', async (req, res) => {
     try {
         console.log('Im being requested: Skateboard')
@@ -25,7 +25,7 @@ skateboardRouter.get('/', async (req, res) => {
     }
 });
 
-// Get Single
+// Get Single Skateboards
 skateboardRouter.get('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
@@ -47,7 +47,7 @@ skateboardRouter.get('/:id', async (req, res) => {
     }
 });
 
-// Insert Single
+// Insert Single Skateboard
 skateboardRouter.post('/', async (req, res) => {
     try {
 
@@ -97,7 +97,7 @@ skateboardRouter.post('/', async (req, res) => {
     }
 })
 
-// Update Single
+// Update Single Skateboard
 skateboardRouter.put('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
@@ -156,7 +156,7 @@ skateboardRouter.put('/:id', async (req, res) => {
     }
 })
 
-// Delete Single
+// Delete Single Skateboard
 skateboardRouter.delete('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
@@ -188,8 +188,6 @@ skateboardRouter.delete('/:id', async (req, res) => {
                     .execute()
 
             })
-
-
 
     } catch (error) {
         console.log('Error fetching: ', error)
