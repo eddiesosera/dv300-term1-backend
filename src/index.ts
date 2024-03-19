@@ -1,5 +1,5 @@
 import express from 'express';
-import dotenv from 'dotenv';
+import dotenv from 'dotenv'; // ? hey this has a red underline for me: is it the same for you
 import locationRouter from './routes/location.route';
 // import inventoryRouter from './route/inventoryRoute';
 // import recipeRouter from './route/recipeRoute';
