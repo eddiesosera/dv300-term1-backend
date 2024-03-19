@@ -98,14 +98,14 @@ skateboardRouter.post('/', async (req, res) => {
 })
 
 // Update Single
-skateboardRouter.patch('/:id', async (req, res) => {
+skateboardRouter.put('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
         const { price } = req.body;
         const { avatar } = req.body;
         const { configuration } = req.body;
 
-        // Find Single Item
+        // Find Single Skateboard Item
         const skateboardItem = await
             appDataSource
                 .getRepository(Skateboard)
@@ -114,24 +114,41 @@ skateboardRouter.patch('/:id', async (req, res) => {
                 .where("skateboards.id = :id", { id: id })
                 .getOne()
 
+        // Find Single Configuration Item
+        const configurationItem = await
+            appDataSource
+                .getRepository(Configuration)
+                .createQueryBuilder("configuration")
+                .where("configuration.id = :id", { id: skateboardItem?.configuration?.id })
+                .getOne()
+
         if (!skateboardItem) {
             res.status(400).json({ message: 'No Item found' })
         }
 
-        // Update Properties
+        // Update Skateboard Properties
         skateboardItem!.price = price
         skateboardItem!.avatar = avatar
-        skateboardItem!.configuration!.board_type = configuration.board_type
 
-        console.log("Updated Skateboard", skateboardItem)
+        // Update Configuration Properties
+        configurationItem!.board_type = configuration.board_type
+        configurationItem!.board_skin = configuration.board_skin
+        configurationItem!.trucks = configuration.trucks
+        configurationItem!.wheels = configuration.wheels
+        configurationItem!.bearings = configuration.bearings
+
+        console.log("Updated Skateboard", skateboardItem, "Updated Skateboard", configurationItem)
 
         const updatedItem = await appDataSource
-            .createQueryBuilder()
-            .update(Skateboard)
-            .set(skateboardItem!)
-            .execute()
+            .getRepository(Skateboard)
+            .save(skateboardItem!)
 
-        res.json(updatedItem)
+        await appDataSource
+            .getRepository(Configuration)
+            .save(configurationItem!).then((config) => {
+                res.json("Update Config: " + config)
+                res.json(updatedItem)
+            })
 
     } catch (error) {
         console.log('Error fetching: ', error)
@@ -150,7 +167,7 @@ skateboardRouter.delete('/:id', async (req, res) => {
             .where("id = :id", { id: id })
             .execute()
 
-        res.json(skateboard)
+        res.json("Successfully removed Skateboard. " + JSON.stringify(skateboard))
 
     } catch (error) {
         console.log('Error fetching: ', error)
