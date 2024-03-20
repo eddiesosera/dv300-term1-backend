@@ -49,30 +49,57 @@ locationRouter.get('/:id', async (req, res) => {
     }
 });
 
-// Update Single
-locationRouter.get('/:id', async (req, res) => {
+// Insert (Create) Location
+locationRouter.post('/', async (req, res) => {
+    try {
+
+        const newLocation = req.body
+
+        console.log("Trying to create the location: ", newLocation)
+
+        await appDataSource
+            .createQueryBuilder()
+            .insert()
+            .into(Location)
+            .values(newLocation)
+            .execute().then((location) => {
+                let newLocationId = location.identifiers[0].id
+                console.log("Created New Location ID: ", newLocationId)
+                res.json("Created New Location: " + newLocationId)
+            })
+
+    } catch (error) {
+        console.log('Error creating Location: ', error)
+        res.status(500).json({ error: 'Could not create Location account. Internal server error' })
+    }
+})
+
+// Update Single Location
+locationRouter.patch('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const { amount } = req.body;
+        const { name, city, description } = req.body;
 
-        // Find single item
+        // Find Single Location Item
         const locationItem = await
             appDataSource.getRepository(Location).findOneBy({ id: id })
-        // res.json(locationItem);
 
-        if (!locationItem) {
-            res.status(400).json({ message: 'No Item found' })
-        }
+        // Update Location Properties
+        locationItem!.name = name;
+        locationItem!.city = city;
+        locationItem!.description = description;
 
-        // update vars
-        locationItem!.stockAmount = amount
-        // update all the vars of Location  that you want
-        const updatedItem = await appDataSource.getRepository(Location).save(locationItem!);
+        console.log("Updated Location", locationItem)
+
+        const updatedItem = await appDataSource
+            .getRepository(Location)
+            .save(locationItem!)
+
         res.json(updatedItem)
 
     } catch (error) {
-        console.log('Error fetching: ', error)
-        res.status(500).json({ error: 'Internal server error' })
+        console.log('Error updating Location: ', error)
+        res.status(500).json({ error: 'Internal server error while updating Location' })
     }
 })
 
