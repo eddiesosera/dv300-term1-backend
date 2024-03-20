@@ -4,6 +4,7 @@ import locationRouter from './routes/location.route';
 import skateboardRouter from './routes/skateboard.route';
 import configurationRouter from './routes/configuration.route';
 import userRouter from './routes/user.route';
+import loginRouter from './routes/auth/login.route';
 // import inventoryRouter from './route/inventoryRoute';
 // import recipeRouter from './route/recipeRoute';
 
@@ -18,12 +19,15 @@ app.get('/', (req, res) => {
     res.send('Hello, Skate360!');
 });
 
-// Route Endpoints
+// Route Endpoints: Entities
 app.use('/location', locationRouter)
 app.use('/skateboards', skateboardRouter)
 app.use('/configuration', configurationRouter)
 app.use('/users', userRouter)
-// app.use('/recipe', recipeRouter)
+
+// Route Endpoints: Auth
+app.use('/login', loginRouter)
+
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is listening on port ${process.env.PORT}`);
