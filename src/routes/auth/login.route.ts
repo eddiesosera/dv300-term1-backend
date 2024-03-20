@@ -1,6 +1,7 @@
 import express from "express";
 import AppDataSource from "../../dataSource";
 import { User } from "../../models/user.model";
+import * as bcrypt from 'bcrypt';
 
 const authRouter = express.Router()
 const appDataSource = AppDataSource
@@ -11,6 +12,7 @@ authRouter.use(express.json());
 authRouter.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
+        let isPasswordMatched = false
 
         // Find Single User Item
         const userItem = await
@@ -20,14 +22,18 @@ authRouter.post('/login', async (req, res) => {
             res.json("User does not exist.")
         }
 
-        if (userItem?.email === email && userItem?.password === password) {
-            res.json({ status: "Success", user: JSON.stringify(userItem) })
-        } else if (userItem?.password !== password) {
-            res.json({ ok: "Bad credentials. Try again" })
-        }
+        // Check if password matches
+        bcrypt.compare(password, userItem!.password).then(function (result) {
+            console.log("Password matched: " + result)
+            isPasswordMatched = result
 
-        console.log("Updated User", userItem)
-        res.json(userItem)
+            // If email and password matches then return user else throw error
+            if (userItem?.email === email && isPasswordMatched) {
+                res.json({ status: "Success", user: JSON.stringify(userItem) })
+            } else if (userItem?.password !== password) {
+                res.json({ ok: "Bad credentials. Try again" })
+            }
+        })
 
     } catch (error) {
         console.log('Error updating User: ', error)

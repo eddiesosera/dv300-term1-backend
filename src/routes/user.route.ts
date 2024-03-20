@@ -1,6 +1,7 @@
 import express from "express";
 import AppDataSource from "../dataSource";
 import { User } from "../models/user.model";
+import * as bcrypt from 'bcrypt';
 
 const userRouter = express.Router()
 const appDataSource = AppDataSource
@@ -54,21 +55,19 @@ userRouter.get('/:id', async (req, res) => {
 userRouter.post('/', async (req, res) => {
     try {
 
-        const newUser = req.body
+        const { password, ...newUser } = req.body
 
-        console.log("Trying to create the user: ", newUser)
+        console.log("Trying to create the user: ", newUser);
+
+        // Password hashing
+        const salt = await bcrypt.genSalt(10);
+        let newPassword = await bcrypt.hash(password, salt)
 
         const createdUser = await appDataSource
-            .createQueryBuilder()
-            .insert()
-            .into(User)
-            .values({ dateJoined: Date(), ...newUser })
-            .execute().then((user) => {
-                let newUserId = user.identifiers[0].id
-                console.log("Created New User ID: ", newUserId)
-            })
+            .getRepository(User)
+            .save({ dateJoined: Date(), password: newPassword, ...newUser })
 
-        res.json("Created New User: " + createdUser)
+        res.json("Created New User: " + JSON.stringify(createdUser))
 
     } catch (error) {
         console.log('Error creating User: ', error)
