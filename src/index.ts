@@ -5,6 +5,7 @@ import skateboardRouter from './routes/skateboard.route';
 import configurationRouter from './routes/configuration.route';
 import userRouter from './routes/user.route';
 import authRouter from './routes/auth/login.route';
+import stockNeededRouter from './routes/stockNeeded.route';
 // import inventoryRouter from './route/inventoryRoute';
 // import recipeRouter from './route/recipeRoute';
 
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 app.use('/location', locationRouter)
 app.use('/skateboards', skateboardRouter)
 app.use('/configuration', configurationRouter)
+app.use('/stockNeeded', stockNeededRouter)
 app.use('/users', userRouter)
 
 // Route Endpoints: Auth

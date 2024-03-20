@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn
 import { Location } from "./location.model";
 import { Configuration } from "./configuration.model";
 import { User } from "./user.model";
+import { StockNeeded } from "./stockNeeded.model";
 
 @Entity()
 export class Skateboard {
@@ -27,5 +28,9 @@ export class Skateboard {
 
     @ManyToOne(() => Location, (location) => location.skateboards)
     public location?: Location
+
+    @OneToOne(() => StockNeeded)
+    @JoinColumn()
+    stockNeeded?: StockNeeded | null
 
 }

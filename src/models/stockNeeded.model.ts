@@ -1,10 +1,13 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Skateboard } from "./skateboard.model";
 
 @Entity()
-export class Configuration {
+export class StockNeeded {
     @PrimaryGeneratedColumn()
     id!: number;
+
+    @Column()
+    skateboard_type!: string;
 
     @Column()
     board_type!: number;
@@ -21,8 +24,8 @@ export class Configuration {
     @Column()
     bearings!: number;
 
-    @OneToOne(() => Skateboard)
+    @OneToMany(() => Skateboard, (skateboard) => skateboard.stockNeeded)
     @JoinColumn()
-    skateboard?: Skateboard | null
+    skateboards?: Skateboard[]
 
 }

@@ -17,6 +17,8 @@ skateboardRouter.get('/', async (req, res) => {
             .getRepository(Skateboard)
             .createQueryBuilder('skateboards')
             .leftJoinAndSelect('skateboards.configuration', 'configuration')
+            .leftJoinAndSelect('skateboards.location', 'location')
+            .leftJoinAndSelect('skateboards.stockNeeded', 'stockNeeded')
             .getMany();
         res.json(items)
     } catch (error) {
@@ -32,6 +34,8 @@ skateboardRouter.get('/:id', async (req, res) => {
         const skateboard = await appDataSource.getRepository(Skateboard)
             .createQueryBuilder("skateboards")
             .leftJoinAndSelect('skateboards.configuration', 'configuration')
+            .leftJoinAndSelect('skateboards.location', 'location')
+            .leftJoinAndSelect('skateboards.stockNeeded', 'stockNeeded')
             .where("skateboards.id = :id", { id: id })
             .getOne()
 
