@@ -4,7 +4,7 @@ import locationRouter from './routes/location.route';
 import skateboardRouter from './routes/skateboard.route';
 import configurationRouter from './routes/configuration.route';
 import userRouter from './routes/user.route';
-import loginRouter from './routes/auth/login.route';
+import authRouter from './routes/auth/login.route';
 // import inventoryRouter from './route/inventoryRoute';
 // import recipeRouter from './route/recipeRoute';
 
@@ -26,7 +26,7 @@ app.use('/configuration', configurationRouter)
 app.use('/users', userRouter)
 
 // Route Endpoints: Auth
-app.use('/login', loginRouter)
+app.use('/auth', authRouter)
 
 
 app.listen(process.env.PORT, () => {

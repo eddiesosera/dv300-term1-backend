@@ -2,13 +2,13 @@ import express from "express";
 import AppDataSource from "../../dataSource";
 import { User } from "../../models/user.model";
 
-const loginRouter = express.Router()
+const authRouter = express.Router()
 const appDataSource = AppDataSource
 
-loginRouter.use(express.json());
+authRouter.use(express.json());
 
-// Update User
-loginRouter.post('/', async (req, res) => {
+// Login User
+authRouter.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -21,7 +21,7 @@ loginRouter.post('/', async (req, res) => {
         }
 
         if (userItem?.email === email && userItem?.password === password) {
-            res.json({ ok: "Successfull. " + JSON.stringify(userItem) })
+            res.json({ status: "Success", user: JSON.stringify(userItem) })
         } else if (userItem?.password !== password) {
             res.json({ ok: "Bad credentials. Try again" })
         }
@@ -36,4 +36,4 @@ loginRouter.post('/', async (req, res) => {
 });
 
 
-export default loginRouter
+export default authRouter
