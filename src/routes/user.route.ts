@@ -15,7 +15,7 @@ userRouter.get('/', async (req, res) => {
             .getRepository(User)
             .createQueryBuilder('users')
             .leftJoinAndSelect('users.skateboard', 'skateboard')
-            .leftJoinAndSelect('users.location', 'location')
+            .leftJoinAndSelect('users.location', 'User')
             .getMany();
 
         res.json(users)
@@ -34,7 +34,7 @@ userRouter.get('/:id', async (req, res) => {
             .getRepository(User)
             .createQueryBuilder('users')
             .leftJoinAndSelect('users.skateboard', 'skateboard')
-            .leftJoinAndSelect('users.location', 'location')
+            .leftJoinAndSelect('users.location', 'User')
             .where("users.id = :id", { id: id })
             .getOne()
 
@@ -74,7 +74,40 @@ userRouter.post('/', async (req, res) => {
         console.log('Error creating User: ', error)
         res.status(500).json({ error: 'Could not create User account. Internal server error' })
     }
-})
+});
+
+// Update User
+userRouter.patch('/:id', async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const { name, surname, email, avatar, password, isEmailVerified } = req.body;
+
+        // Find Single User Item
+        const userItem = await
+            appDataSource.getRepository(User).findOneBy({ id: id })
+
+        // Update User Properties
+        userItem!.name = name;
+        userItem!.surname = surname;
+        userItem!.email = email;
+        userItem!.avatar = avatar;
+        userItem!.password = password;
+        userItem!.isEmailVerified = isEmailVerified;
+
+        console.log("Updated User", userItem)
+
+        // Update the user item
+        const updatedItem = await appDataSource
+            .getRepository(User)
+            .save(userItem!)
+
+        res.json(updatedItem)
+
+    } catch (error) {
+        console.log('Error updating User: ', error)
+        res.status(500).json({ error: 'Internal server error while updating User' })
+    }
+});
 
 // Delete Single User
 userRouter.delete('/:id', async (req, res) => {
