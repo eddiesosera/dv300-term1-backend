@@ -76,6 +76,27 @@ userRouter.post('/', async (req, res) => {
     }
 })
 
+// Delete Single User
+userRouter.delete('/:id', async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+
+        // Delete User
+        const userDelete = await appDataSource.getRepository(User)
+            .createQueryBuilder()
+            .delete()
+            .from(User)
+            .where("id = :id", { id: id })
+            .execute()
+
+        res.json("Successfully removed User. " + JSON.stringify(userDelete))
+
+    } catch (error) {
+        console.log('Error deleting user: ', error)
+        res.status(500).json({ error: 'Internal server error while deleting user' })
+    }
+});
+
 
 export default userRouter
 
