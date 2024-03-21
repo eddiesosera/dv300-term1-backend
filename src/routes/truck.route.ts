@@ -50,8 +50,7 @@ truckRouter.put('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
         // todo : this needs to be changed
-        const { type } = req.body;
-        const { size } = req.body;
+        const { color } = req.body;
         const { price } = req.body;
         const { stiffness } = req.body;
 
@@ -73,9 +72,8 @@ truckRouter.put('/:id', async (req, res) => {
         // todo : this need to be fixed
         // update truck properties
         truckItem!.price = price
-        // truckItem!.color = color // *
+        truckItem!.color = color
         truckItem!.stiffness = stiffness
-        // truckItem!.avatar = avatar // *
 
         console.log("Updated truck", truckItem) // ? check this 
 
