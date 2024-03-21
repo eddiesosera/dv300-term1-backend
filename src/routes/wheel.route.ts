@@ -45,6 +45,16 @@ wheelRouter.get('/:id', async (req, res) => {
 });
 
 // todo : Insert Single Wheel
+wheelRouter.post('/', async (req, res) => {
+    try {
+        const { userId, ...newWheel } = req.body
+
+        // let configId: a
+    } catch (error) {
+        console.log('Error fetching: ', error)
+        res.status(500).json({ error: 'Internal server error' })
+    }
+})
 
 
 // todo : Update Single Wheel
@@ -101,17 +111,17 @@ wheelRouter.delete('/:id', async (req, res) => {
             .createQueryBuilder("wheels") // ? 
             // .leftJoinAndSelect('') // ? do i have to add this or is it obly for configurations
             .where("wheels.id = :id", { id: id })
-            .getOne().then(async(wheelbd:any)=>{
+            .getOne().then(async (wheelbd: any) => {
                 // ? what is sktbd ?
                 console.log("DELETE WHEELBD:", wheelbd)
 
                 // delete wheel 
                 const wheelDelete = await appDataSource.getRepository(Wheel)
-                .createQueryBuilder()
-                .delete()
-                .from(Wheel)
-                .where("id = :id", {id: id})
-                .execute()
+                    .createQueryBuilder()
+                    .delete()
+                    .from(Wheel)
+                    .where("id = :id", { id: id })
+                    .execute()
 
                 res.json("successfully removed wheel." + JSON.stringify(wheelDelete))
             })
