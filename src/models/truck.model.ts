@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Location } from "./location.model";
 
 @Entity()
 export class Truck {
@@ -7,6 +8,8 @@ export class Truck {
 
     // location
     // ? : not sure how to do this one
+    @ManyToOne(()=> Location, (location)=> location.skateboards)
+    public location?:Location
 
     // color
     @Column()

@@ -10,8 +10,8 @@ export class Wheel {
     // location: number;
 
     // ? just check this if it is correct
-    @ManyToOne(() => Location, (location) => location)
-    public location?: Location
+    @ManyToOne(()=> Location, (location)=> location.skateboards)
+    public location?:Location
 
     @Column()
     type!: string;
