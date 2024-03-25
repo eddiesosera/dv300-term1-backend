@@ -11,8 +11,9 @@ authRouter.use(express.json());
 // Login User
 authRouter.post('/login', async (req, res) => {
     try {
+        // console.log('Request body: ', req.body)
         const { email, password } = req.body;
-        let isPasswordMatched = false
+        let isPasswordMatched = false;
 
         // Find Single User Item
         const userItem = await
@@ -22,6 +23,8 @@ authRouter.post('/login', async (req, res) => {
             res.json("User does not exist.")
         }
 
+        console.log('Email: ' + email, 'Password: ' + password);
+
         // Check if password matches
         bcrypt.compare(password, userItem!.password).then(function (result) {
             console.log("Password matched: " + result)
@@ -29,10 +32,14 @@ authRouter.post('/login', async (req, res) => {
 
             // If email and password matches then return user else throw error
             if (userItem?.email === email && isPasswordMatched) {
-                res.json({ status: "Success", user: JSON.stringify(userItem) })
+                const userWithoutPassword = { ...userItem };
+                delete userWithoutPassword.password;
+                res.json({ status: "Success", user: JSON.stringify(userWithoutPassword) })
             } else if (userItem?.password !== password) {
                 res.json({ ok: "Bad credentials. Try again" })
             }
+        }).catch(err => {
+            res.json({ message: `Bcrypt failed because: ${err}` })
         })
 
     } catch (error) {
