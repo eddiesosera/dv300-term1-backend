@@ -15,8 +15,7 @@ wheelRouter.use(express.json())
 wheelRouter.get('/', async (req, res) => {
     try {
         console.log('all wheels being requested')
-        const items = await appDataSource
-            .getRepository(Wheel) // ? not sure waht else i should add here
+        const items = await appDataSource.getRepository(Wheel).find()
         res.json(items)
     } catch (error) {
         console.log('error fetching:', error)
@@ -61,10 +60,10 @@ wheelRouter.post('/', async (req, res) => {
 wheelRouter.put('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
+        const { name } = req.body;
         const { type } = req.body;
         const { size } = req.body;
         const { price } = req.body;
-        const { stiffness } = req.body;
 
         // ? find single wheel item ?
         const wheelItem = await
@@ -82,9 +81,9 @@ wheelRouter.put('/:id', async (req, res) => {
         }
 
         // update wheel properties
+        wheelItem!.name = name
         wheelItem!.price = price
         wheelItem!.size = size
-        wheelItem!.stiffness = stiffness
         wheelItem!.type = type
 
         console.log("Updated wheel", wheelItem) // ? check this 

@@ -14,7 +14,7 @@ boardtypeRouter.get('/', async (req, res) => {
     try {
         console.log('all board type being requested')
         // functional part : to get items from the repository BoardType
-        const items = await appDataSource.getRepository(BoardType)
+        const items = await appDataSource.getRepository(BoardType).find()
         res.json(items)
     } catch (error) {
         console.log('error fetching:', error)
@@ -26,9 +26,10 @@ boardtypeRouter.get('/', async (req, res) => {
 boardtypeRouter.get('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const boardtype = await appDataSource
-            .getRepository(BoardType)
-        // .getOne()
+        const boardtype = await appDataSource.getRepository(BoardType)
+        .createQueryBuilder("boardtype")
+        .where("boardtype.id = :id", { id: id })
+        .getOne()
 
         if (!boardtype) {
             return res.status(404).json({ error: 'boardType not found' })
@@ -38,7 +39,7 @@ boardtypeRouter.get('/:id', async (req, res) => {
 
     } catch (error) {
         console.log('error fetching:', error)
-        res.status(500).json({ error: 'internal server erro' })
+        res.status(500).json({ error: 'internal server error' })
     }
 });
 
@@ -49,6 +50,7 @@ boardtypeRouter.put('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
         const { name } = req.body;
+        const { type } = req.body;
         const { price } = req.body;
         const { avatar } = req.body;
 
@@ -69,15 +71,16 @@ boardtypeRouter.put('/:id', async (req, res) => {
 
         // update boardtype properties
         boardTypeItem!.name = name
+        boardTypeItem!.type = type
         boardTypeItem!.price = price
-        boardTypeItem!.price = price
+        boardTypeItem!.avatar = avatar
 
         console.log("Updated boardType", boardTypeItem) // ? check this 
 
         const updatedItem = await appDataSource
             .getRepository(BoardType)
             .save(boardTypeItem!)
-
+        res.json(updatedItem)
         // await appDataSource // this is for the configuration ?
 
     } catch (error) {

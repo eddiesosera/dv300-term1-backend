@@ -25,7 +25,7 @@ export class Truck {
 
     //stored on
     @Column()
-    storedOn!: number; // ? : date?
+    storedOn!: string; // ? : date?
 
     // avatar
     @Column()

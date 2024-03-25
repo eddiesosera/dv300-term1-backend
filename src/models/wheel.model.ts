@@ -14,6 +14,9 @@ export class Wheel {
     public location?:Location
 
     @Column()
+    name!: string;
+
+    @Column()
     type!: string;
 
     @Column()
@@ -24,9 +27,6 @@ export class Wheel {
 
     @Column()
     storedOn!: string; // ?
-
-    @Column()
-    stiffness!: number;
 
     // @Column()
     // avatar!: string;

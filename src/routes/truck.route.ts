@@ -14,8 +14,7 @@ truckRouter.use(express.json())
 truckRouter.get('/', async (req, res) => {
     try {
         console.log('all trucks being requested')
-        const items = await appDataSource
-            .getRepository(Truck) // ? not sure waht else i should add here
+        const items = await appDataSource.getRepository(Truck).find() // ? getmany()
         res.json(items)
     } catch (error) {
         console.log('error fetching:', error)

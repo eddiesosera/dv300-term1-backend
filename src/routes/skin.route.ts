@@ -13,8 +13,7 @@ skinRouter.use(express.json())
 skinRouter.get('/', async (req, res) => {
     try {
         console.log('all skins being requested')
-        const items = await appDataSource
-            .getRepository(Skin) // ? not sure waht else i should add here
+        const items = await appDataSource.getRepository(Skin).find()
         res.json(items)
     } catch (error) {
         console.log('error fetching:', error)
@@ -44,6 +43,7 @@ skinRouter.get('/:id', async (req, res) => {
 
 // todo : Insert Single skin
 
+
 // todo : Update Single skin
 skinRouter.put('/:id', async (req, res) => {
     try {
@@ -57,8 +57,7 @@ skinRouter.put('/:id', async (req, res) => {
         const skinItem = await
             appDataSource
                 .getRepository(Skin) // ?
-                .createQueryBuilder("skin")
-                .leftJoinAndSelect('skins.configuration', 'configuration')
+                .createQueryBuilder("skins")
                 .where("skins.id = :id", { id: id })
                 .getOne()
 
@@ -80,7 +79,7 @@ skinRouter.put('/:id', async (req, res) => {
         const updatedItem = await appDataSource
             .getRepository(Skin)
             .save(skinItem!)
-
+        res.json(updatedItem)
         // await appDataSource // this is for the configuration ?
 
     } catch (error) {

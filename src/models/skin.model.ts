@@ -17,7 +17,7 @@ export class Skin {
     price!: number;
 
     @Column() // stored on
-    storedOn!: number; // ?
+    storedOn!: string;
 
     @Column() // avatar
     avatar!: string; 

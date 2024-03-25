@@ -10,12 +10,11 @@ const appDataSource = AppDataSource
 
 bearingRouter.use(express.json())
 
-// todo : Get all bearings
+// * : Get all bearings
 bearingRouter.get('/', async (req, res) => {
     try {
         console.log('all bearings being requested')
-        const items = await appDataSource
-            .getRepository(Bearing) // ?
+        const items = await appDataSource.getRepository(Bearing).find()
         res.json(items)
     } catch (error) {
         console.log('error fetching:', error)
@@ -23,7 +22,7 @@ bearingRouter.get('/', async (req, res) => {
     }
 });
 
-// todo : Get single bearing
+// * : Get single bearing
 bearingRouter.get('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);

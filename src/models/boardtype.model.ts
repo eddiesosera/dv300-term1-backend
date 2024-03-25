@@ -14,6 +14,9 @@ export class BoardType {
     @Column() // name 
     name!: string;
 
+    @Column()
+    type!:string;
+
     @Column() // back color 
     backColor!:string;
 
@@ -21,7 +24,7 @@ export class BoardType {
     price!: number;
 
     @Column() // stored on
-    storedOn!: number;
+    storedOn!: string;
 
     @Column() // avatar
     avatar!: string;
