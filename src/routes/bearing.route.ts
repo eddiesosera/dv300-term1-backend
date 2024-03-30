@@ -26,9 +26,10 @@ bearingRouter.get('/', async (req, res) => {
 bearingRouter.get('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const bearing = await appDataSource
-            .getRepository(Bearing)
-        // .getOne()
+        const bearing = await appDataSource.getRepository(Bearing)
+            .createQueryBuilder("bearing")
+            .where("bearing.id = :id", { id: id })
+            .getOne()
 
         if (!bearing) {
             return res.status(404).json({ error: 'bearing not found' })
@@ -42,28 +43,46 @@ bearingRouter.get('/:id', async (req, res) => {
     }
 });
 
-// todo : Insert Single bearing
+// * : Insert Single bearing
+bearingRouter.post('/', async (req, res) => {
+    try {
+        const newBearing = req.body
+        console.log("trying to create new bearing: ", newBearing)
+
+        await appDataSource
+            .createQueryBuilder()
+            .insert()
+            .into(Bearing)
+            .values(newBearing)
+            .execute().then((bearing) => {
+                let newBearingId = bearing.identifiers[0].id
+                console.log("created new bearing ID: ", newBearingId)
+                res.json("created New Beating: " + newBearingId)
+            })
+
+    } catch (error) {
+        console.log('error creating Bearing: ', error)
+        res.status(500).json({ erro: 'could not create bearing' })
+    }
+})
 
 // todo : Update Single bearing
 bearingRouter.put('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        
-        const { brand } = req.body;
-        const { avatar } = req.body;
-        const { price } = req.body;
-        const { color } = req.body;
 
-        // ? find single bearing item ?
+        const { brand } = req.body;
+        const { color } = req.body;
+        const { price } = req.body;
+        const { storedOn } = req.body;
+        const { avatar } = req.body;
+
         const bearingItem = await
-            appDataSource
-                .getRepository(Bearing) // ?
-                .createQueryBuilder("bearing")
-                .leftJoinAndSelect('bearings.configuration', 'configuration')
+            appDataSource.getRepository(Bearing)
+                .createQueryBuilder("bearings")
                 .where("bearings.id = :id", { id: id })
                 .getOne()
 
-        // ? find single configuration item ?
 
         if (!bearingItem) {
             res.status(400).json({ message: 'no item found' })
@@ -73,16 +92,16 @@ bearingRouter.put('/:id', async (req, res) => {
         bearingItem!.brand = brand
         bearingItem!.color = color
         bearingItem!.price = price
+        bearingItem!.storedOn = storedOn
         bearingItem!.avatar = avatar
-        
 
-        console.log("Updated bearing", bearingItem) // ? check this 
+
+        console.log("Updated bearing", bearingItem) 
 
         const updatedItem = await appDataSource
             .getRepository(Bearing)
             .save(bearingItem!)
-
-        // await appDataSource // this is for the configuration ?
+        res.json(updatedItem)
 
     } catch (error) {
         console.log('error fetching:', error)
@@ -90,18 +109,16 @@ bearingRouter.put('/:id', async (req, res) => {
     }
 });
 
-// todo : Delete single Bearing
+// * : Delete single Bearing
 bearingRouter.delete('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
 
         // get bearing
         await appDataSource.getRepository(Bearing)
-            .createQueryBuilder("bearings") // ? 
-            // .leftJoinAndSelect('') // ? do i have to add this or is it obly for configurations
+            .createQueryBuilder("bearings")
             .where("bearings.id = :id", { id: id })
             .getOne().then(async (bearingbd: any) => {
-                // ? what is sktbd ?
                 console.log("DELETE BEARINGBD:", bearingbd)
 
                 // delete bearing

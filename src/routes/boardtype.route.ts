@@ -27,9 +27,9 @@ boardtypeRouter.get('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
         const boardtype = await appDataSource.getRepository(BoardType)
-        .createQueryBuilder("boardtype")
-        .where("boardtype.id = :id", { id: id })
-        .getOne()
+            .createQueryBuilder("boardtype")
+            .where("boardtype.id = :id", { id: id })
+            .getOne()
 
         if (!boardtype) {
             return res.status(404).json({ error: 'boardType not found' })
@@ -44,26 +44,48 @@ boardtypeRouter.get('/:id', async (req, res) => {
 });
 
 // todo : Insert Single boardtype
+boardtypeRouter.post('/', async (req, res) => {
+    try {
+        const newBoardType = req.body
+        console.log("trying to make new boarType: ", newBoardType)
+
+        await appDataSource
+            .createQueryBuilder()
+            .insert()
+            .into(BoardType)
+            .values(newBoardType)
+            .execute().then((boardType) => {
+                let newBoardTypeId = boardType.identifiers[0].id
+                console.log("create new skin ID: ", newBoardTypeId)
+                res.json("created New BoardType: " + newBoardTypeId)
+            })
+
+    } catch (error) {
+        console.log("error creating boardtype: ", error)
+        res.status(500).json({ erro: 'could not create boadtype' })
+    }
+})
 
 // * : Update Single boardType
 boardtypeRouter.put('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
+
         const { name } = req.body;
         const { type } = req.body;
+        const { backColor } = req.body;
         const { price } = req.body;
+        const {storedOn} = req.body;
         const { avatar } = req.body;
 
         // ? find single boardtype item ?
         const boardTypeItem = await
             appDataSource
                 .getRepository(BoardType) // ?
-                .createQueryBuilder("boardType")
-                .leftJoinAndSelect('boardTypes.configuration', 'configuration')
+                .createQueryBuilder("boardTypes")
                 .where("boardTypes.id = :id", { id: id })
                 .getOne()
 
-        // ? find single configuration item ?
 
         if (!boardTypeItem) {
             res.status(400).json({ message: 'no item found' })
@@ -72,7 +94,9 @@ boardtypeRouter.put('/:id', async (req, res) => {
         // update boardtype properties
         boardTypeItem!.name = name
         boardTypeItem!.type = type
+        boardTypeItem!.backColor = backColor
         boardTypeItem!.price = price
+        boardTypeItem!.storedOn = storedOn
         boardTypeItem!.avatar = avatar
 
         console.log("Updated boardType", boardTypeItem) // ? check this 

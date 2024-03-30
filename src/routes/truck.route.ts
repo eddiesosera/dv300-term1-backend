@@ -10,7 +10,7 @@ const appDataSource = AppDataSource
 
 truckRouter.use(express.json())
 
-// todo : Get all trucks
+// * : Get all trucks
 truckRouter.get('/', async (req, res) => {
     try {
         console.log('all trucks being requested')
@@ -22,13 +22,14 @@ truckRouter.get('/', async (req, res) => {
     }
 });
 
-// todo : Get single truck
+// * : Get single truck
 truckRouter.get('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const truck = await appDataSource
-            .getRepository(Truck)
-        // .getOne()
+        const truck = await appDataSource.getRepository(Truck)
+        .createQueryBuilder("truck")
+        .where("truck.id = :id", {id: id})
+        .getOne()
 
         if (!truck) {
             return res.status(404).json({ error: 'truck not found' })
@@ -42,7 +43,29 @@ truckRouter.get('/:id', async (req, res) => {
     }
 });
 
-// todo : Insert Single truck
+// * : Insert Single truck
+truckRouter.post('/', async (req, res) => {
+try{
+    const newTruck = req.body
+
+    console.log("trying to create a new truck: ", newTruck)
+
+    await appDataSource
+    .createQueryBuilder()
+    .insert()
+    .into(Truck)
+    .values(newTruck)
+    .execute().then((truck)=>{
+        let newTruckId = truck.identifiers[0].id
+        console.log("created new truck ID: ", newTruckId)
+        res.json("created new Truck: " + newTruckId)
+    })
+
+}catch (error){
+    console.log('error creating truck: ', error)
+    res.status(500).json({error: 'could not create truck'})
+}
+})
 
 // todo : Update Single truck
 truckRouter.put('/:id', async (req, res) => {
@@ -50,15 +73,16 @@ truckRouter.put('/:id', async (req, res) => {
         const id = parseInt(req.params.id);
         // todo : this needs to be changed
         const { color } = req.body;
-        const { price } = req.body;
         const { stiffness } = req.body;
+        const { price } = req.body;
+        const { storedOn } = req.body;
+        const { avatar } = req.body;
 
         // ? find single truck item ?
         const truckItem = await
             appDataSource
                 .getRepository(Truck) // ?
-                .createQueryBuilder("truck")
-                .leftJoinAndSelect('trucks.configuration', 'configuration')
+                .createQueryBuilder("trucks")
                 .where("trucks.id = :id", { id: id })
                 .getOne()
 
@@ -70,16 +94,18 @@ truckRouter.put('/:id', async (req, res) => {
 
         // todo : this need to be fixed
         // update truck properties
-        truckItem!.price = price
         truckItem!.color = color
         truckItem!.stiffness = stiffness
+        truckItem!.price = price
+        truckItem!.storedOn = storedOn
+        truckItem!.avatar = avatar
 
         console.log("Updated truck", truckItem) // ? check this 
 
         const updatedItem = await appDataSource
             .getRepository(Truck)
             .save(truckItem!)
-
+        res.json(updatedItem)
         // await appDataSource // this is for the configuration ?
 
     } catch (error) {
@@ -88,7 +114,7 @@ truckRouter.put('/:id', async (req, res) => {
     }
 });
 
-// todo : Delete single truck
+// * : Delete single truck
 truckRouter.delete('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);

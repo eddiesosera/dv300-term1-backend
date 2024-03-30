@@ -17,7 +17,7 @@ export class Bearing {
     price!: number;
 
     @Column() // stored On
-    storedOn!: string; // ? : date
+    storedOn!: string; 
 
     @Column() // avatar
     avatar!: string;

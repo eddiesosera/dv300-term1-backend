@@ -11,7 +11,7 @@ const appDataSource = AppDataSource
 
 wheelRouter.use(express.json())
 
-// todo : Get all Wheels 
+// * : Get all Wheels 
 wheelRouter.get('/', async (req, res) => {
     try {
         console.log('all wheels being requested')
@@ -23,13 +23,14 @@ wheelRouter.get('/', async (req, res) => {
     }
 });
 
-// todo : Get single wheel
+// * : Get single wheel
 wheelRouter.get('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const wheel = await appDataSource
-            .getRepository(Wheel)
-        // .getOne()
+        const wheel = await appDataSource.getRepository(Wheel)
+            .createQueryBuilder("wheel")
+            .where("wheel.id = :id", { id: id })
+            .getOne()
 
         if (!wheel) {
             return res.status(404).json({ error: 'wheel not found' })
@@ -39,16 +40,27 @@ wheelRouter.get('/:id', async (req, res) => {
 
     } catch (error) {
         console.log('error fetching:', error)
-        res.status(500).json({ error: 'internal server erro' })
+        res.status(500).json({ error: 'internal server error' })
     }
 });
 
-// todo : Insert Single Wheel
+// * : Insert Single Wheel
 wheelRouter.post('/', async (req, res) => {
     try {
-        const { userId, ...newWheel } = req.body
+        const newWheel = req.body
+        console.log("trying to create the new wheel: ", newWheel)
 
-        // let configId: a
+        await appDataSource
+            .createQueryBuilder()
+            .insert()
+            .into(Wheel)
+            .values(newWheel)
+            .execute().then((wheel) => {
+                let newWheelId = wheel.identifiers[0].id
+                console.log("created new wheel ID: ", newWheelId)
+                res.json("created New WHeel: " + newWheelId)
+            })
+
     } catch (error) {
         console.log('Error fetching: ', error)
         res.status(500).json({ error: 'Internal server error' })
@@ -64,17 +76,17 @@ wheelRouter.put('/:id', async (req, res) => {
         const { type } = req.body;
         const { size } = req.body;
         const { price } = req.body;
+        const { storedOn } = req.body;
+        // const { avatar } = req.body;
 
-        // ? find single wheel item ?
+
         const wheelItem = await
             appDataSource
-                .getRepository(Wheel) // ? (Wheel) = does this fetch from the model
+                .getRepository(Wheel)
                 .createQueryBuilder("wheels")
-                .leftJoinAndSelect('wheels.configuration', 'configuration')
                 .where("wheels.id = :id", { id: id })
                 .getOne()
 
-        // ? find single configuration item ?
 
         if (!wheelItem) {
             res.status(400).json({ message: 'no item found' })
@@ -85,13 +97,15 @@ wheelRouter.put('/:id', async (req, res) => {
         wheelItem!.price = price
         wheelItem!.size = size
         wheelItem!.type = type
+        wheelItem!.storedOn = storedOn
+        // wheelItem!.avatar = avatar
 
         console.log("Updated wheel", wheelItem) // ? check this 
 
         const updatedItem = await appDataSource
             .getRepository(Wheel)
             .save(wheelItem!)
-
+        res.json(updatedItem)
         // await appDataSource // this is for the configuration ?
 
     } catch (error) {
@@ -100,15 +114,14 @@ wheelRouter.put('/:id', async (req, res) => {
     }
 });
 
-// todo : Delete single wheel
+// * : Delete single wheel
 wheelRouter.delete('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
 
         // get wheel
         await appDataSource.getRepository(Wheel)
-            .createQueryBuilder("wheels") // ? 
-            // .leftJoinAndSelect('') // ? do i have to add this or is it obly for configurations
+            .createQueryBuilder("wheels")
             .where("wheels.id = :id", { id: id })
             .getOne().then(async (wheelbd: any) => {
                 // ? what is sktbd ?

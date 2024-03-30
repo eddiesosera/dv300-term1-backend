@@ -9,7 +9,7 @@ const appDataSource = AppDataSource
 
 skinRouter.use(express.json())
 
-// todo : Get all skins
+// * : Get all skins
 skinRouter.get('/', async (req, res) => {
     try {
         console.log('all skins being requested')
@@ -21,13 +21,14 @@ skinRouter.get('/', async (req, res) => {
     }
 });
 
-// todo : Get single skin
+// * : Get single skin
 skinRouter.get('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const skin = await appDataSource
-            .getRepository(Skin)
-        // .getOne()
+        const skin = await appDataSource.getRepository(Skin)
+        .createQueryBuilder("skin")
+        .where("skin.id = :id", {id: id})
+        .getOne()
 
         if (!skin) {
             return res.status(404).json({ error: 'skin not found' })
@@ -37,18 +38,39 @@ skinRouter.get('/:id', async (req, res) => {
 
     } catch (error) {
         console.log('error fetching:', error)
-        res.status(500).json({ error: 'internal server erro' })
+        res.status(500).json({ error: 'internal server error' })
     }
 });
 
-// todo : Insert Single skin
+// * : Insert Single skin
+skinRouter.post('/', async (req, res) => {
+    try {
+        const newSkin = req.body
 
+        console.log("trying to create the new skin: ", newSkin)
 
-// todo : Update Single skin
+        await appDataSource
+            .createQueryBuilder()
+            .insert()
+            .into(Skin)
+            .values(newSkin)
+            .execute().then((skin) => {
+                let newSkinId = skin.identifiers[0].id
+                console.log("created new skin ID: ", newSkinId)
+                res.json("created New Skin: " + newSkinId)
+            })
+            
+    } catch (error) {
+        console.log('error creating Skin: ', error)
+        res.status(500).json({ error: 'could not create skin' })
+    }
+})
+
+// * : Update Single skin
 skinRouter.put('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        // todo : this needs to be changed
+
         const { name } = req.body;
         const { price } = req.body;
         const { avatar } = req.body;
@@ -88,7 +110,7 @@ skinRouter.put('/:id', async (req, res) => {
     }
 });
 
-// todo : Delete single skin
+// * : Delete single skin
 skinRouter.delete('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
