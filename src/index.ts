@@ -32,9 +32,9 @@ app.use('/configuration', configurationRouter)
 app.use('/stockNeeded', stockNeededRouter)
 app.use('/users', userRouter)
 app.use('/wheels', wheelRouter)
-app.use('/bearings',bearingRouter)
+app.use('/bearings', bearingRouter)
 app.use('/trucks', truckRouter)
-app.use('/boardType',boardtypeRouter)
+app.use('/boardType', boardtypeRouter)
 app.use('/skins', skinRouter)
 
 // Route Endpoints: Auth

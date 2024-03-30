@@ -1,11 +1,10 @@
 {
-    "type": "postgres",
-    "host": "localhost",
-    "port": 5432,
-    "username": "postgres",
-    "password": "6470", 
-    "synchronize": true,
-    "entities":["src/models/**/*"],
-    "database":"testing_db" 
-  }
-  
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "postgres",
+  "password": "1234",
+  "synchronize": true,
+  "entities":["src/models/**/*"],
+  "database":"dv300_term1"
+}

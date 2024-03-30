@@ -6,10 +6,10 @@ const AppDataSource = new DataSource(
         "host": "localhost",
         "port": 5432,
         "username": "postgres",
-        "password": "6470",
+        "password": "1234",
         "synchronize": true,
         "entities": ["src/models/**/*"],
-        "database": "testing_db"
+        "database": "dv300_term1"
     }
 )
 
