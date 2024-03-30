@@ -43,7 +43,7 @@ boardtypeRouter.get('/:id', async (req, res) => {
     }
 });
 
-// todo : Insert Single boardtype
+// * : Insert Single boardtype
 boardtypeRouter.post('/', async (req, res) => {
     try {
         const newBoardType = req.body
