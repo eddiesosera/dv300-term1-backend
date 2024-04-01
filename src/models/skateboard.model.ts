@@ -29,7 +29,7 @@ export class Skateboard {
     @ManyToOne(() => Location, (location) => location.skateboards)
     public location?: Location
 
-    @OneToOne(() => StockNeeded)
+    @ManyToOne(() => StockNeeded)
     @JoinColumn()
     stockNeeded?: StockNeeded | null
 

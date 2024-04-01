@@ -19,6 +19,7 @@ skateboardRouter.get('/', async (req, res) => {
             .leftJoinAndSelect('skateboards.configuration', 'configuration')
             .leftJoinAndSelect('skateboards.location', 'location')
             .leftJoinAndSelect('skateboards.stockNeeded', 'stockNeeded')
+            .leftJoinAndSelect('skateboards.craftedBy', 'users')
             .getMany();
         res.json(items)
     } catch (error) {
@@ -36,6 +37,7 @@ skateboardRouter.get('/:id', async (req, res) => {
             .leftJoinAndSelect('skateboards.configuration', 'configuration')
             .leftJoinAndSelect('skateboards.location', 'location')
             .leftJoinAndSelect('skateboards.stockNeeded', 'stockNeeded')
+            .leftJoinAndSelect('skateboards.craftedBy', 'users')
             .where("skateboards.id = :id", { id: id })
             .getOne()
 
@@ -55,7 +57,7 @@ skateboardRouter.get('/:id', async (req, res) => {
 skateboardRouter.post('/', async (req, res) => {
     try {
 
-        const { configuration, userId, ...newSkateboard } = req.body
+        const { configuration, userId, locationId, stockNeeded, ...newSkateboard } = req.body
         // const {configuration} = req.body
         let configId: any = null;
 
@@ -84,6 +86,8 @@ skateboardRouter.post('/', async (req, res) => {
                 .values([
                     {
                         craftedBy: userId!,
+                        location: locationId!,
+                        stockNeeded: stockNeeded!,
                         avatar: newSkateboard.avatar,
                         price: newSkateboard.price,
                         craftedOn: Date(),
@@ -93,6 +97,7 @@ skateboardRouter.post('/', async (req, res) => {
                 .execute().then((sktbd) => {
                     let skateboardNewId = sktbd.identifiers[0].id
                     console.log("Created New Skateboard ID: ", skateboardNewId)
+                    res.json(sktbd)
                 })
         }
     } catch (error) {
@@ -135,11 +140,11 @@ skateboardRouter.put('/:id', async (req, res) => {
         skateboardItem!.avatar = avatar
 
         // Update Configuration Properties
-        configurationItem!.board_type = configuration.board_type
-        configurationItem!.board_skin = configuration.board_skin
-        configurationItem!.trucks = configuration.trucks
-        configurationItem!.wheels = configuration.wheels
-        configurationItem!.bearings = configuration.bearings
+        configurationItem!.board_type = configuration?.board_type
+        configurationItem!.board_skin = configuration?.board_skin
+        configurationItem!.trucks = configuration?.trucks
+        configurationItem!.wheels = configuration?.wheels
+        configurationItem!.bearings = configuration?.bearings
 
         console.log("Updated Skateboard", skateboardItem, "Updated Skateboard", configurationItem)
 
@@ -150,7 +155,7 @@ skateboardRouter.put('/:id', async (req, res) => {
         await appDataSource
             .getRepository(Configuration)
             .save(configurationItem!).then((config) => {
-                res.json("Update Config: " + config)
+                res.json("Update Config: " + JSON.stringify(config))
                 res.json(updatedItem)
             })
 

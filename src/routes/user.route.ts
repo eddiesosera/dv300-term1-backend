@@ -16,7 +16,7 @@ userRouter.get('/', async (req, res) => {
             .getRepository(User)
             .createQueryBuilder('users')
             .leftJoinAndSelect('users.skateboard', 'skateboard')
-            .leftJoinAndSelect('users.location', 'User')
+            .leftJoinAndSelect('users.location', 'location')
             .getMany();
 
         res.json(users)
@@ -79,7 +79,7 @@ userRouter.post('/', async (req, res) => {
 userRouter.patch('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        const { name, surname, email, avatar, password, isEmailVerified } = req.body;
+        const { name, surname, email, avatar, password, isEmailVerified, location } = req?.body;
 
         // Find Single User Item
         const userItem = await
@@ -92,6 +92,7 @@ userRouter.patch('/:id', async (req, res) => {
         userItem!.avatar = avatar;
         userItem!.password = password;
         userItem!.isEmailVerified = isEmailVerified;
+        userItem!.location = location;
 
         console.log("Updated User", userItem)
 
@@ -128,7 +129,6 @@ userRouter.delete('/:id', async (req, res) => {
         res.status(500).json({ error: 'Internal server error while deleting user' })
     }
 });
-
 
 export default userRouter
 

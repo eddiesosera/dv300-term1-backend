@@ -15,6 +15,9 @@ locationRouter.get('/', async (req, res) => {
             .getRepository(Location)
             .createQueryBuilder('location')
             .leftJoinAndSelect('location.skateboards', 'skateboards')
+            .leftJoinAndSelect('skateboards.configuration', 'configuration')
+            // .leftJoinAndSelect('skateboards.craftedBy')
+            .leftJoinAndSelect('skateboards.stockNeeded', 'stockNeeded')
             .leftJoinAndSelect('location.users', 'users')
             .getMany();
 
