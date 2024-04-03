@@ -14,7 +14,11 @@ boardtypeRouter.get('/', async (req, res) => {
     try {
         console.log('all board type being requested')
         // functional part : to get items from the repository BoardType
-        const items = await appDataSource.getRepository(BoardType).find()
+        const items = await appDataSource
+            .getRepository(BoardType)
+            .createQueryBuilder('board_type')
+            .leftJoinAndSelect('board_type.configuration', 'configuration')
+            .getMany()
         res.json(items)
     } catch (error) {
         console.log('error fetching:', error)
@@ -71,12 +75,7 @@ boardtypeRouter.put('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id);
 
-        const { name } = req.body;
-        const { type } = req.body;
-        const { backColor } = req.body;
-        const { price } = req.body;
-        const {storedOn} = req.body;
-        const { avatar } = req.body;
+        const { name, type, backColor, price, storedOn, avatar, location, quantity } = req.body;
 
         // ? find single boardtype item ?
         const boardTypeItem = await
@@ -85,7 +84,6 @@ boardtypeRouter.put('/:id', async (req, res) => {
                 .createQueryBuilder("boardTypes")
                 .where("boardTypes.id = :id", { id: id })
                 .getOne()
-
 
         if (!boardTypeItem) {
             res.status(400).json({ message: 'no item found' })
@@ -98,6 +96,8 @@ boardtypeRouter.put('/:id', async (req, res) => {
         boardTypeItem!.price = price
         boardTypeItem!.storedOn = storedOn
         boardTypeItem!.avatar = avatar
+        boardTypeItem!.location = location
+        boardTypeItem!.quantity = quantity
 
         console.log("Updated boardType", boardTypeItem) // ? check this 
 

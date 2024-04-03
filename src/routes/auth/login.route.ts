@@ -17,7 +17,12 @@ authRouter.post('/login', async (req, res) => {
 
         // Find Single User Item
         const userItem = await
-            appDataSource.getRepository(User).findOneBy({ email: email });
+            appDataSource
+                .getRepository(User)
+                .createQueryBuilder('users')
+                .leftJoinAndSelect('users.location', 'User')
+                .where({ email: email })
+                .getOne();
 
         if (!userItem) {
             res.json({ message: "User does not exist." })

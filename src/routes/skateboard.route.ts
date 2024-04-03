@@ -17,6 +17,7 @@ skateboardRouter.get('/', async (req, res) => {
             .getRepository(Skateboard)
             .createQueryBuilder('skateboards')
             .leftJoinAndSelect('skateboards.configuration', 'configuration')
+            .leftJoinAndSelect('configuration.board_type', 'board_type')
             .leftJoinAndSelect('skateboards.location', 'location')
             .leftJoinAndSelect('skateboards.stockNeeded', 'stockNeeded')
             .leftJoinAndSelect('skateboards.craftedBy', 'users')

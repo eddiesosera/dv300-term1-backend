@@ -16,6 +16,7 @@ locationRouter.get('/', async (req, res) => {
             .createQueryBuilder('location')
             .leftJoinAndSelect('location.skateboards', 'skateboards')
             .leftJoinAndSelect('skateboards.configuration', 'configuration')
+            .leftJoinAndSelect('configuration.board_type', 'board_type')
             // .leftJoinAndSelect('skateboards.craftedBy')
             .leftJoinAndSelect('skateboards.stockNeeded', 'stockNeeded')
             .leftJoinAndSelect('location.users', 'users')
