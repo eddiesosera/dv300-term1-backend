@@ -9,7 +9,7 @@ export class BoardType {
     id!: number;
 
     // location
-    @ManyToOne(() => Location, (location) => location.skateboards) // ? is it all supposed to be skateboards ?
+    @ManyToOne(() => Location, (location) => location.skateboards)
     public location?: Location
 
     @Column() // name 

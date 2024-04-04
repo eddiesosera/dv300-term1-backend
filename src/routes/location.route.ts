@@ -20,7 +20,7 @@ locationRouter.get('/', async (req, res) => {
             .leftJoinAndSelect('location.trucks', 'trucks')
             .leftJoinAndSelect('location.wheels', 'wheels')
             .leftJoinAndSelect('location.bearings', 'bearings')
-            .leftJoinAndSelect('location.board_type', 'board_type')
+            // .leftJoinAndSelect('location.board_type', 'board_type')
 
             .leftJoinAndSelect('configuration.board_type', 'board_type')
             // .leftJoinAndSelect('skateboards.craftedBy')
