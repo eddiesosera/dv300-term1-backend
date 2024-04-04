@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Location } from "./location.model"
+import { Configuration } from "./configuration.model";
 
 @Entity()
 export class Wheel {
@@ -30,4 +31,7 @@ export class Wheel {
 
     // @Column()
     // avatar!: string;
+
+    @OneToMany(()=> Configuration, (config)=> config.wheels)
+    public configuration?: Configuration[]
 }

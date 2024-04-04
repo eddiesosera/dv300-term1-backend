@@ -97,7 +97,7 @@ boardtypeRouter.put('/:id', async (req, res) => {
         boardTypeItem!.storedOn = storedOn
         boardTypeItem!.avatar = avatar
         boardTypeItem!.location = location
-        boardTypeItem!.quantity = quantity
+        // boardTypeItem!.quantity = quantity
 
         console.log("Updated boardType", boardTypeItem) // ? check this 
 

@@ -30,8 +30,8 @@ export class BoardType {
     @Column() // avatar
     avatar!: string;
 
-    @Column()
-    quantity!: number;
+    // @Column()
+    // quantity!: number;
 
     @OneToMany(() => Configuration, (config) => config.board_type)
     public configuration?: Configuration[]

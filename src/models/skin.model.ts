@@ -1,5 +1,6 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Location } from "./location.model";
+import { Configuration } from "./configuration.model";
 
 @Entity()
 export class Skin {
@@ -21,4 +22,7 @@ export class Skin {
 
     @Column() // avatar
     avatar!: string; 
+
+    @OneToMany(()=> Configuration, (config)=> config.board_skin)
+    public configuration?: Configuration[]
 }

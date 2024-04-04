@@ -1,5 +1,6 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Location } from "./location.model";
+import { Configuration } from "./configuration.model";
 
 @Entity()
 export class Truck {
@@ -30,6 +31,9 @@ export class Truck {
     // avatar
     @Column()
     avatar!: string;
+
+    @OneToMany(()=> Configuration,(config)=> config.trucks)
+    public configuration?: Configuration[]
 
 
 }
