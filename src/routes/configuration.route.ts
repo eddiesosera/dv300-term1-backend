@@ -13,7 +13,9 @@ configurationRouter.get('/', async (req, res) => {
         console.log('Config: Im being requested')
         const items = await appDataSource
             .getRepository(Configuration)
-            .find();
+            .createQueryBuilder('configuration')
+            .leftJoinAndSelect('configuration.board_type', 'skateboards')
+            .getMany();
 
         res.json(items)
 

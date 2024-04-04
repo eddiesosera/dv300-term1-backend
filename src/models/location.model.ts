@@ -5,6 +5,7 @@ import { Skin } from "./skin.model";
 import { Bearing } from "./bearing.model";
 import { Truck } from './truck.model';
 import { Wheel } from "./wheel.model";
+import { BoardType } from "./boardtype.model";
 
 @Entity()
 export class Location {
@@ -49,6 +50,9 @@ export class Location {
     // wheel 
     @OneToMany(() => Wheel, (wheels) => wheels.location)
     public wheels?: Wheel[]
+
+    @OneToMany(()=> BoardType, (type)=> type.location)
+    public board_type?: BoardType[]
 
     // DIFFERENT STOCK AMOUNT ON SITE
 

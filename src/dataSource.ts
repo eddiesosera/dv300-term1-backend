@@ -9,7 +9,7 @@ const AppDataSource = new DataSource(
         "password": "1234",
         "synchronize": true,
         "entities": ["src/models/**/*"],
-        "database": "testing_db"
+        "database": "dv300_term1"
     }
 )
 
