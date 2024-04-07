@@ -13,6 +13,8 @@ This is the ReadMe documantation for the back end of the Skateboard warehouse in
 - [Software used](#software-used)
 - [Development Process](#development-process)
     - [Relational Diagram](#relational-diagram)
+    - [Setting up Crud](#setting-up-the-crud-functionality)
+- [Responsibilities](#responsibilities)
 
 
 ### Authors
@@ -59,6 +61,8 @@ This is the relational diagram for the database entity structure.
 <img src="ReadMeAssets\database Architecture.png">
 
 > Relational diagram.
+
+<br>
 
 ### Setting Up the ```CRUD``` Functionality.
 
@@ -294,3 +298,26 @@ This is the relational diagram for the database entity structure.
         }
     });
   ```
+
+<br>
+
+## Responsibilities
+
+Who was responsable for developing each part of the backend.
+
+**Eddie**
+  - skateboard Route and Model
+  - Configuration Route and Model
+  - Location Route and Model
+  - User Model Route
+  - ormConfig
+  - DataSource File
+  - Backend Authentication Route
+
+**Ungerer**
+  - Wheel Route and model
+  - Truck Route and model
+  - Bearing Route and model
+  - Board-Skin Route and model
+  - Board-Type Route and model
+  - Backend ReadMe file
