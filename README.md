@@ -61,7 +61,7 @@ This is the ReadMe documantation for the back end of the Skateboard warehouse in
 
 A list of all the software that was used in the development of the backend 
 
-- Postgress
+- Postgress (pgadmin4)
     > Is the SQL database 
 
 - Visual Studio Code
@@ -77,7 +77,7 @@ A list of all the software that was used in the development of the backend
 
 ## Linking backend to Database
 
-this is an example of how to link the backend to the postgres Database.
+this is how we linked the backend to the postgres Database.
 
 ```
 {
