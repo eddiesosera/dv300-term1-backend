@@ -37,16 +37,19 @@ This is the ReadMe documantation for the back end of the Skateboard warehouse in
 A list of all the software that was used in the development of the backend 
 
 - Postgress
-> Is the SQL database 
+    > Is the SQL database 
+    
 
 - Visual Studio Code
-> the coding software
+    > the coding software
+
 
 - Postman 
-> To test Http commands To test Functionality
+    > To test Http commands To test Functionality
+
 
 - Insomnia 
-> To test Http commands To test Functionality
+    > To test Http commands To test Functionality
 
 <br>
 
