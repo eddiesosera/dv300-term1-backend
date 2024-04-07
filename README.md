@@ -21,8 +21,8 @@ This is the ReadMe documantation for the back end of the Skateboard warehouse in
 
 
 ### Authors
-[Eddie](https://github.com/eddiesosera)
-[Ungerer](https://github.com/Ungerer221)
+1. [Eddie](https://github.com/eddiesosera)
+2. [Ungerer](https://github.com/Ungerer221)
 
 <br>
 
