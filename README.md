@@ -7,22 +7,22 @@ This is the ReadMe documantation for the back end of the Skateboard warehouse in
 
 ## Table of Contents
 
-- [Authers](#authors)
-- [Front-end Link](#front-end-link)
-- [Code Structure Used](#code-structure-used)
-- [Software used](#software-used)
-- [Linking backend to Database](#linking-backend-to-database)
-- [Development Process](#development-process)
+1. [Authers](#authors)
+2. [Front-end Link](#front-end-link)
+3. [Code Structure Used](#code-structure-used)
+4. [Software used](#software-used)
+5. [Linking backend to Database](#linking-backend-to-database)
+6. [Development Process](#development-process)
     - [Relational Diagram](#relational-diagram)
     - [Setting up Crud](#setting-up-the-crud-functionality)
-- [Responsibilities](#responsibilities)
-- [License](#license)
-- [Contact Us](#contact)
+7. [Responsibilities](#responsibilities)
+8. [License](#license)
+9. [Contact Us](#contact)
 
 
 ### Authors
-1. [Eddie](https://github.com/eddiesosera)
-2. [Ungerer](https://github.com/Ungerer221)
+- [Eddie](https://github.com/eddiesosera)
+- [Ungerer](https://github.com/Ungerer221)
 
 <br>
 
