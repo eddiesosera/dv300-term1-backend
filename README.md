@@ -2,9 +2,9 @@
 
 ## Table of Contents
 
-[Software used](#software-used)
-[Development Process](#development-process)
-    [Relational Diagram](###relational-diagram)
+- [Software used](#software-used)
+- [Development Process](#development-process)
+    - [Relational Diagram](###relational-diagram)
 
 ### Description:
 This is the ReadMe documantation for the back end of the Skateboard warehouse inventory management webiste.
