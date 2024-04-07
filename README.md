@@ -11,10 +11,13 @@ This is the ReadMe documantation for the back end of the Skateboard warehouse in
 - [Front-end Link](#front-end-link)
 - [Code Structure Used](#code-structure-used)
 - [Software used](#software-used)
+- [Linking backend to Database](#linking-backend-to-database)
 - [Development Process](#development-process)
     - [Relational Diagram](#relational-diagram)
     - [Setting up Crud](#setting-up-the-crud-functionality)
 - [Responsibilities](#responsibilities)
+- [License](#license)
+- [Contact Us](#contact)
 
 
 ### Authors
@@ -49,6 +52,28 @@ A list of all the software that was used in the development of the backend
 
 - Insomnia 
     > To test Http commands To test Functionality
+
+<br>
+
+## Linking backend to Database
+
+this is an example of how to link the backend to the postgres Database.
+
+```
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "postgres",
+  "password": "****",
+  "synchronize": true,
+  "entities":["src/models/**/*"],
+  "database":"***********"
+}
+```
+
+>[!NOTE]
+>This can be found in both the ormconfig.json file and in the dataSource.ts file in the src folder. 
 
 <br>
 
@@ -321,3 +346,18 @@ Who was responsable for developing each part of the backend.
   - Board-Skin Route and model
   - Board-Type Route and model
   - Backend ReadMe file
+
+  <!-- LICENSE -->
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.\
+
+<!-- LICENSE -->
+
+## Contact
+
+- **Eddie Sosera** - [email@address](mailto:email@address) - [@instagram_handle](https://www.instagram.com/instagram_handle/)
+- **Ungerer Hattingh** - [email@address](mailto:email@address) - [@instagram_handle](https://www.instagram.com/instagram_handle/)
+- **Project Link** - https://github.com/eddiesosera/dv300-term1
+- **Backend Link** - https://github.com/eddiesosera/dv300-term1-backend
