@@ -27,7 +27,7 @@ This is the ReadMe documantation for the back end of the Skateboard warehouse in
 
 ## Table of Contents
 
-1. [Authers](#authors)
+1. [Authors](#authors)
 2. [Front-end Link](#front-end-link)
 3. [Code Structure Used](#code-structure-used)
 4. [Software used](#software-used)
@@ -41,8 +41,8 @@ This is the ReadMe documantation for the back end of the Skateboard warehouse in
 
 
 ### Authors
-- [Eddie](https://github.com/eddiesosera)
-- [Ungerer](https://github.com/Ungerer221)
+- [eddiesosera](https://github.com/eddiesosera)
+- [Ungerer221](https://github.com/Ungerer221)
 
 <br>
 
