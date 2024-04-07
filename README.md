@@ -1,9 +1,29 @@
-# dv300-term1-backend
+
+![GitHub repo size](https://img.shields.io/github/repo-size/username/projectname?color=%000000)
+![GitHub watchers](https://img.shields.io/github/watchers/username/projectname?color=%000000)
+![GitHub language count](https://img.shields.io/github/languages/count/username/projectname?color=%000000)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/username/projectname?color=%000000)
+[![LinkedIn][linkedin-shield]][linkedin-url]
+[![Instagram][instagram-shield]][instagram-url]
+[![Behance][behance-shield]][behance-url]
+
+# DV300-Term1-Backend
 
 ### Description:
 This is the ReadMe documantation for the back end of the Skateboard warehouse inventory management webiste.
 
-<br>
+<!-- HEADER SECTION -->
+<h5 align="center" style="padding:0;margin:0;">Eddie Sosera</h5>
+<h5 align="center" style="padding:0;margin:0;">21100419</h5>
+<h6 align="center">DV300 2024</h6>
+
+</br>
+
+<h5 align="center" style="padding:0;margin:0;">Ungerer Hattingh</h5>
+<h5 align="center" style="padding:0;margin:0;">221302</h5>
+<h6 align="center">DV300 2024</h6>
+
+</br>
 
 ## Table of Contents
 
