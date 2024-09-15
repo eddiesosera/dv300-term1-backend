@@ -84,7 +84,7 @@ A list of all the software that was used in the development of the backend
     > Is the SQL database 
 
 - Visual Studio Code
-    > the coding software
+    > The coding software
 
 - Postman 
     > To test server endpoints
@@ -124,7 +124,7 @@ this is how we linked the backend to the PostgreSQL Database.
 
 This is the relational diagram for the database entity structure.
 
-<img src="https://github.com/eddiesosera/skate-360/blob/main/readMeAssets/database-architecture.jpg">
+<img src="https://github.com/eddiesosera/skate-360/blob/main/readMeAssets/database-architecture.png">
 
 > Relational diagram.
 
@@ -373,7 +373,7 @@ This is the relational diagram for the database entity structure.
 Who was responsible for developing each part of the backend.
 
 **Eddie**
-  - skateboard Route and Model
+  - Skateboard Route and Model
   - Configuration Route and Model
   - Location Route and Model
   - User Model Route
@@ -386,7 +386,7 @@ Who was responsible for developing each part of the backend.
   - Truck Route and model
   - Bearing Route and model
   - Board-Skin Route and model
-  - Board-Type Route and model
+  - Board-type Route and model
   - Backend ReadMe file
 
 </br>
