@@ -1,29 +1,40 @@
+<!-- HEADER SECTION -->
+ <p align="center">
+<h5 align="center" style="padding:0;margin:0;">Eddie Sosera 21100419  |  Ungerer Hattingh 221302</h5>
+·
+<!-- <h5 align="center" style="padding:0;margin:0;">Ungerer Hattingh 221302</h5> -->
+</p>
+</br>
 
-![GitHub repo size](https://img.shields.io/github/repo-size/username/projectname?color=%000000)
-![GitHub watchers](https://img.shields.io/github/watchers/username/projectname?color=%000000)
-![GitHub language count](https://img.shields.io/github/languages/count/username/projectname?color=%000000)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/username/projectname?color=%000000)
-[![LinkedIn][linkedin-shield]][linkedin-url]
-[![Instagram][instagram-shield]][instagram-url]
-[![Behance][behance-shield]][behance-url]
-
-# DV300-Term1-Backend
-
-### Description:
-This is the ReadMe documantation for the back end of the Skateboard warehouse inventory management webiste.
+<!-- Cover Image-->
+ <a href="https://github.com/eddiesosera/dbhunt">
+    <img src="https://github.com/eddiesosera/skate-360/readmeAssets/skate-360-cover.png" alt="Cover Image">
+  </a>
 
 <!-- HEADER SECTION -->
-<h5 align="center" style="padding:0;margin:0;">Eddie Sosera</h5>
-<h5 align="center" style="padding:0;margin:0;">21100419</h5>
-<h6 align="center">DV300 2024</h6>
+<br />
+<br />
 
-</br>
+<p align="center">
 
-<h5 align="center" style="padding:0;margin:0;">Ungerer Hattingh</h5>
-<h5 align="center" style="padding:0;margin:0;">221302</h5>
-<h6 align="center">DV300 2024</h6>
-
-</br>
+  <a href="https://github.com/eddiesosera/skate-360">
+    <img src="https://github.com/eddiesosera/skate-360/readmeAssets/skate-360-logo.png" alt="Logo" width="140">
+  </a>
+  
+  <h3 align="center">Skate 360</h3>
+  <p align="center">
+   Skate All day, Everyday!
+    <br>
+    <br>
+      <a href="https://github.com/eddiesosera/skate-360"><strong>Explore the docs »</strong></a>
+   <br />
+   <br />
+   <a href="https://drive.google.com/drive/folders/1UVmXXdD3UPih2JOfLJc1vha8G8sXqz5x?usp=sharing">View Demo</a>
+    ·
+    <a href="https://github.com/eddiesosera/skate-360/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/eddiesosera/skate-360/issues">Request Feature</a>
+</p>
 
 ## Table of Contents
 
@@ -39,6 +50,26 @@ This is the ReadMe documantation for the back end of the Skateboard warehouse in
 8. [License](#license)
 9. [Contact Us](#contact)
 
+</br>
+</br>
+
+<img src="https://github.com/eddiesosera/skate-360/readmeAssets/skate-360-logo.png" alt="Logo" width="140">
+
+### Description:
+This is the documentation for the backend of the Skateboard warehouse inventory management webapp.
+
+<!-- HEADER SECTION -->
+<h5 align="center" style="padding:0;margin:0;">Eddie Sosera</h5>
+<h5 align="center" style="padding:0;margin:0;">21100419</h5>
+<h6 align="center">DV300 2024</h6>
+
+</br>
+
+<h5 align="center" style="padding:0;margin:0;">Ungerer Hattingh</h5>
+<h5 align="center" style="padding:0;margin:0;">221302</h5>
+<h6 align="center">DV300 2024</h6>
+
+</br>
 
 ### Authors
 - [eddiesosera](https://github.com/eddiesosera)
@@ -68,12 +99,13 @@ A list of all the software that was used in the development of the backend
     > the coding software
 
 - Postman 
-    > To test Http commands To test Functionality
+    > To test server endpoints
 
 - Insomnia 
-    > To test Http commands To test Functionality
+    > To test server endpoints
 
-<br>
+</br>
+</br>
 
 ## Linking backend to Database
 
@@ -95,7 +127,8 @@ this is how we linked the backend to the postgres Database.
 >[!NOTE]
 >This can be found in both the ormconfig.json file and in the dataSource.ts file in the src folder. 
 
-<br>
+</br>
+</br>
 
 ## Development Process
 
@@ -344,7 +377,8 @@ This is the relational diagram for the database entity structure.
     });
   ```
 
-<br>
+</br>
+</br>
 
 ## Responsibilities
 
@@ -367,11 +401,17 @@ Who was responsable for developing each part of the backend.
   - Board-Type Route and model
   - Backend ReadMe file
 
+</br>
+</br>
+
   <!-- LICENSE -->
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.\
+Distributed under the MIT License. See `LICENSE` for more information.
+
+</br>
+</br>
 
 <!-- LICENSE -->
 
