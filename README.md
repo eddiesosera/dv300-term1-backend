@@ -15,8 +15,8 @@
 </br>
 
 <!-- Cover Image-->
- <a href="https://github.com/eddiesosera/skate-360">
-    <img src="https://github.com/eddiesosera/skate-360/readmeAssets/skate-360-cover.png" alt="Cover Image">
+ <a href="https://github.com/eddiesosera/dv300-term1-backend">
+    <img src="https://github.com/eddiesosera/skate-360/blob/main/readmeAssets/skate-360-cover.png" alt="Cover Image">
   </a>
 
 <!-- HEADER SECTION -->
@@ -25,8 +25,8 @@
 
 <p align="center">
 
-  <a href="https://github.com/eddiesosera/skate-360">
-    <img src="https://github.com/eddiesosera/skate-360/readmeAssets/skate-360-logo.png" alt="Logo" width="140">
+  <a href="https://github.com/eddiesosera/dv300-term1-backend">
+    <img src="https://github.com/eddiesosera/skate-360/blob/main/readmeAssets/skate-360-logo.png" alt="Logo" width="140">
   </a>
   
   <h3 align="center">Skate 360: Backend</h3>
@@ -58,10 +58,10 @@
 </br>
 </br>
 
-<img src="https://github.com/eddiesosera/skate-360/readmeAssets/skate-360-logo.png" alt="Logo" width="140">
+<img src="https://github.com/eddiesosera/skate-360/blob/main/readmeAssets/skate-360-logo.png" alt="Logo" width="140">
 
 ### Description:
-This is the documentation for the backend of the Skateboard warehouse inventory management webapp.
+This is the documentation for the backend of the Skateboard warehouse inventory management web app.
 
 <!-- HEADER SECTION -->
 <h5 align="center" style="padding:0;margin:0;">Eddie Sosera</h5>
@@ -135,7 +135,7 @@ this is how we linked the backend to the PostgreSQL Database.
 
 This is the relational diagram for the database entity structure.
 
-<img src="ReadMeAssets\database Architecture.png">
+<img src="https://github.com/eddiesosera/skate-360/blob/main/readMeAssets/database-architecture.jpg">
 
 > Relational diagram.
 
@@ -381,7 +381,7 @@ This is the relational diagram for the database entity structure.
 
 ## Responsibilities
 
-Who was responsable for developing each part of the backend.
+Who was responsible for developing each part of the backend.
 
 **Eddie**
   - skateboard Route and Model
