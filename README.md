@@ -1,3 +1,11 @@
+<!-- REPLACE ALL THE [USERNAME] TEXT WITH YOUR GITHUB PROFILE NAME & THE [PROJECTNAME] WITH THE NAME OF YOUR GITHUB PROJECT -->
+
+<!-- Repository Information & Links-->
+<br />
+
+[![LinkedIn][linkedin-shield]][linkedin-url]
+[![Instagram][instagram-shield]][instagram-url]
+
 <!-- HEADER SECTION -->
  <p align="center">
 <h5 align="center" style="padding:0;margin:0;">Eddie Sosera 21100419  |  Ungerer Hattingh 221302</h5>
@@ -7,7 +15,7 @@
 </br>
 
 <!-- Cover Image-->
- <a href="https://github.com/eddiesosera/dbhunt">
+ <a href="https://github.com/eddiesosera/skate-360">
     <img src="https://github.com/eddiesosera/skate-360/readmeAssets/skate-360-cover.png" alt="Cover Image">
   </a>
 
@@ -21,14 +29,11 @@
     <img src="https://github.com/eddiesosera/skate-360/readmeAssets/skate-360-logo.png" alt="Logo" width="140">
   </a>
   
-  <h3 align="center">Skate 360</h3>
+  <h3 align="center">Skate 360: Backend</h3>
   <p align="center">
    Skate All day, Everyday!
     <br>
     <br>
-      <a href="https://github.com/eddiesosera/skate-360"><strong>Explore the docs »</strong></a>
-   <br />
-   <br />
    <a href="https://drive.google.com/drive/folders/1UVmXXdD3UPih2JOfLJc1vha8G8sXqz5x?usp=sharing">View Demo</a>
     ·
     <a href="https://github.com/eddiesosera/skate-360/issues">Report Bug</a>
@@ -71,20 +76,14 @@ This is the documentation for the backend of the Skateboard warehouse inventory 
 
 </br>
 
-### Authors
-- [eddiesosera](https://github.com/eddiesosera)
-- [Ungerer221](https://github.com/Ungerer221)
-
-<br>
-
-## Front End Link
-[Front end Repo](https://github.com/eddiesosera/dv300-term1)
+## Frontend Link
+The following is a link to the frontend repo: [Frontend repo](https://github.com/eddiesosera/dv300-term1).
 
 <br>
 
 ## Code Structure used 
 
-```Angular``` was the code structure used in the devlopment of the backend.
+```Angular``` was the code structure used in the development of the backend.
 
 <br>
 
@@ -109,7 +108,7 @@ A list of all the software that was used in the development of the backend
 
 ## Linking backend to Database
 
-this is how we linked the backend to the postgres Database.
+this is how we linked the backend to the PostgreSQL Database.
 
 ```
 {
@@ -125,7 +124,7 @@ this is how we linked the backend to the postgres Database.
 ```
 
 >[!NOTE]
->This can be found in both the ormconfig.json file and in the dataSource.ts file in the src folder. 
+>This can be found in both the ormconfig.json file and the dataSource.ts file in the src folder. 
 
 </br>
 </br>
@@ -144,12 +143,12 @@ This is the relational diagram for the database entity structure.
 
 ### Setting Up the ```CRUD``` Functionality.
 
-  >This is the crud functionality for the skateboards and their configuration. This being the most complicated example of the ```CRUD``` functionality
+  >This is the crud functionality for the skateboards and their configuration. This is the most complicated example of the ```CRUD``` functionality
 
   Get all Items
 
     > [!NOTE]
-    > The GET ALL Function in the route.ts file used to get all items in the specific array
+    > The GET ALL Function in the route.ts file is used to get all items in the specific array
 
   ```
     // Get All Skateboards
@@ -413,7 +412,14 @@ Distributed under the MIT License. See `LICENSE` for more information.
 </br>
 </br>
 
-<!-- LICENSE -->
+
+### Authors
+- [eddiesosera](https://github.com/eddiesosera)
+- [Ungerer221](https://github.com/Ungerer221)
+
+<br>
+
+<!-- CONTACT -->
 
 ## Contact
 
