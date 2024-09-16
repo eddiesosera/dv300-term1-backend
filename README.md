@@ -124,7 +124,7 @@ this is how we linked the backend to the PostgreSQL Database.
 
 This is the relational diagram for the database entity structure.
 
-<img src="https://github.com/eddiesosera/skate-360/blob/main/readMeAssets/database-architecture.png">
+<img src="https://github.com/eddiesosera/skate-360/blob/main/readMeAssets/database-architecture.jpg">
 
 > Relational diagram.
 
